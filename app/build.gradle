@@ -2,8 +2,10 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
-    id 'com.google.gms.google-services'
-
+    
+    
+     //Google Services Pluggin
+    id("com.google.gms.google-services")	
 }
 
 android {
@@ -46,6 +48,15 @@ dependencies {
 
     // Preference
     implementation "androidx.preference:preference-ktx:1.2.1"
-    implementation platform('com.google.firebase:firebase-bom:32.0.0')
+    
+    
+    implementation(platform("com.google.firebase:firebase-bom:34.2.0"))
+}
 
+
+firebaseAppDistribution {
+    serviceCredentialsFile = System.getenv("FIREBASE_CREDENTIALS")
+    appId = "1:157098205940:android:2d3b31d7f51362e382f4a1" // do seu google-services.json
+    testers = "seuemail@gmail.com" // pode colocar vários separados por vírgula
+    releaseNotes = "Release automático via GitHub Actions 🚀"
 }
