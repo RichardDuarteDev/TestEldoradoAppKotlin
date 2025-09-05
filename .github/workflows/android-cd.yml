@@ -2,7 +2,7 @@ name: Android CD - Firebase Deploy
 
 on:
   workflow_run:
-    workflows: ["Android CI - Continuous Integration"]  # ⚠️ Use o nome EXATO do seu CI!
+    workflows: ["Android CI - Continuous Integration"]
     types: [completed]
     branches: [main]
 
@@ -17,13 +17,17 @@ jobs:
           name: app-debug-apk
           
       - name: List downloaded files
-        run: ls -la  # Para debug
+        run: |
+          echo "Conteúdo da pasta raiz:"
+          ls -la
+          echo "Conteúdo da pasta do artefato:"
+          ls -la app-debug-apk/
           
       - name: Deploy to Firebase
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
           appId: ${{ secrets.FIREBASE_APP_ID }}
           serviceCredentialsFileContent: ${{ secrets.FIREBASE_CREDENTIALS }}
-          groups: 'testers'
-          file: app-debug-apk/app-debug.apk  # ⚠️ Caminho correto!
+          testers: 'richardc.duarte@hotmail.com,gmvermelho@gmail.com'
+          file: app-debug-apk/app-debug.apk  # ✅ Correto!
           debug: true
