@@ -1,8 +1,8 @@
-name: Android CD
+name: Android CD - Firebase Deploy
 
 on:
   workflow_run:
-    workflows: ["Android CI"]  # ⚡ Só executa depois do CI
+    workflows: ["Android CI - Continuous Integration"]  # ⚠️ Use o nome EXATO do seu CI!
     types: [completed]
     branches: [main]
 
@@ -16,10 +16,8 @@ jobs:
         with:
           name: app-debug-apk
           
-      - name: Setup Firebase
-        run: |
-          echo "🔧 Configurando Firebase..."
-          # Foco total no deploy!
+      - name: List downloaded files
+        run: ls -la  # Para debug
           
       - name: Deploy to Firebase
         uses: wzieba/Firebase-Distribution-Github-Action@v1
@@ -27,5 +25,5 @@ jobs:
           appId: ${{ secrets.FIREBASE_APP_ID }}
           serviceCredentialsFileContent: ${{ secrets.FIREBASE_CREDENTIALS }}
           groups: 'testers'
-          file: app-debug-apk/app-debug.apk
+          file: app-debug-apk/app-debug.apk  # ⚠️ Caminho correto!
           debug: true
