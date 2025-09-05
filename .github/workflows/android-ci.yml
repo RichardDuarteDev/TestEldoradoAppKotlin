@@ -59,8 +59,7 @@ jobs:
       - name: Run Lint Analysis
         run: ./gradlew lint
 
-      - name: Run Test Coverage
-        run: ./gradlew jacocoTestReport
+      
         
       # 📦 UPLOAD DOS RELATÓRIOS
       - name: Upload Lint Report
@@ -69,11 +68,22 @@ jobs:
           name: lint-report
           path: app/build/reports/lint-results-debug.html
 
+      - name: Run Test Coverage
+        run: ./gradlew jacocoTestReport
+      - name: Debug - Find Jacoco Report
+        run: |
+            echo "Procurando relatório Jacoco..."
+            find . -name "*jacoco*" -type f
+            echo "Conteudo da pasta reports"
+            ls -la app/build/reports/ || echo "Pasta nao existe"
+            echo "conteudo da pasta jacoco:"
+            ls -la app/build/reports/jacoco/ || echo "Pasta nao existe"
+
       - name: Upload Coverage Report
         uses: actions/upload-artifact@v4
         with:
           name: coverage-report
-          path: app/build/reports/jacoco/jacocoTestReport
+          path: app/build/reports/jacoco/**/*
 
       
       - name: Upload APK
