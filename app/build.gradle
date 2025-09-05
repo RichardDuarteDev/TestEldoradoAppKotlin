@@ -4,7 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'com.google.gms.google-services' // Google Services Pluggin
     id 'com.google.firebase.appdistribution' // ← ESTE ESTÁ FALTANDO!
-
+    id 'jacoco'
 }
 
 android {
@@ -64,4 +64,48 @@ firebaseAppDistribution {
     appId = "1:157098205940:android:2d3b31d7f51362e382f4a1" // do seu google-services.json
     testers = "richardc.duarte@hotmail.com,gmvermelho@gmail.com" // pode colocar vários separados por vírgula
     releaseNotes = "Release automático via GitHub Actions 🚀"
+}
+
+
+
+
+
+
+jacoco {
+    toolVersion = "0.8.11"
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+    jacoco.excludes = ['jdk.internal.*']
+}
+
+task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
+    group = "Reporting"
+    description = "Generate Jacoco coverage reports"
+
+    reports {
+        xml.required = true
+        html.required = true
+        csv.required = false
+    }
+
+    def fileFilter = [
+        '**/R.class',
+        '**/R$*.class',
+        '**/BuildConfig.*',
+        '**/Manifest*.*',
+        '**/*Test*.*',
+        '**/com/example/**/*.*'
+    ]
+
+    def debugTree = fileTree(dir: "${project.buildDir}/intermediates/javac/debug", excludes: fileFilter)
+    def mainSrc = "${project.projectDir}/src/main/java"
+
+    sourceDirectories.setFrom(files([mainSrc]))
+    classDirectories.setFrom(files([debugTree]))
+    executionData.setFrom(fileTree(dir: project.buildDir, includes: [
+        'jacoco/testDebugUnitTest.exec',
+        'outputs/unit_test_code_coverage/debugUnitTest/testDebugUnitTest.exec'
+    ]))
 }
