@@ -22,8 +22,6 @@ jobs:
         run: |
           echo "Conteúdo da pasta:"
           ls -la
-          echo "Conteúdo da pasta app-debug-apk:"
-          ls -la app-debug-apk/
 
       - name: Deploy to Firebase
         uses: wzieba/Firebase-Distribution-Github-Action@v1
@@ -31,5 +29,5 @@ jobs:
           appId: ${{ secrets.FIREBASE_APP_ID }}
           serviceCredentialsFileContent: ${{ secrets.FIREBASE_CREDENTIALS }}
           testers: 'richardc.duarte@hotmail.com,gmvermelho@gmail.com'
-          file: app-debug-apk/app-debug.apk
+          file: app-debug.apk  # ✅ CORRETO - arquivo na raiz
           debug: true
