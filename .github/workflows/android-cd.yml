@@ -1,0 +1,31 @@
+name: Android CD
+
+on:
+  workflow_run:
+    workflows: ["Android CI"]  # ⚡ Só executa depois do CI
+    types: [completed]
+    branches: [main]
+
+jobs:
+  deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download APK from CI
+        uses: actions/download-artifact@v4
+        with:
+          name: app-debug-apk
+          
+      - name: Setup Firebase
+        run: |
+          echo "🔧 Configurando Firebase..."
+          # Foco total no deploy!
+          
+      - name: Deploy to Firebase
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{ secrets.FIREBASE_APP_ID }}
+          serviceCredentialsFileContent: ${{ secrets.FIREBASE_CREDENTIALS }}
+          groups: 'testers'
+          file: app-debug-apk/app-debug.apk
+          debug: true
