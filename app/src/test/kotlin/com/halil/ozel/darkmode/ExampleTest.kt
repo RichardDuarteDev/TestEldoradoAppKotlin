@@ -1,3 +1,5 @@
+package com.halil.ozel.darkmode
+
 import org.junit.Test
 import org.junit.Assert.*
 

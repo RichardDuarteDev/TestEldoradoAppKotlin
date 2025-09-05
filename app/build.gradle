@@ -17,6 +17,18 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }  // ✅ FECHA defaultConfig
+
+    // ✅ testOptions CORRETAMENTE POSICIONADO
+    testOptions {
+        unitTests {
+            all {
+                it.kapt.includeCompileClasspath = false
+                it.kapt.arguments {
+                    arg("skipKapt", "true")
+                }
+            }
+        }
     }
 
     buildTypes {
