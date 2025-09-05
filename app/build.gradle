@@ -19,16 +19,6 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }  // ✅ FECHA defaultConfig
 
-    // ✅ testOptions CORRETAMENTE POSICIONADO
-    testOptions {
-        unitTests.all {
-            it.useJUnitPlatform()
-            // Desabilita processamento kapt para testes
-            it.extensions.configure(org.jetbrains.kotlin.gradle.tasks.KaptTask) {
-                enabled = false
-            }
-        }
-    }
 
     buildTypes {
 	debug {
