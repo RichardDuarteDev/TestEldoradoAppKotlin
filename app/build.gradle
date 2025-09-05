@@ -80,32 +80,21 @@ tasks.withType(Test) {
     jacoco.excludes = ['jdk.internal.*']
 }
 
-task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
+
+
+
+task jacocoTestReport(type: JacocoReport, dependsOn: 'testDebugUnitTest') {
     group = "Reporting"
     description = "Generate Jacoco coverage reports"
 
     reports {
         xml.required = true
         html.required = true
-        csv.required = false
     }
 
-    def fileFilter = [
-        '**/R.class',
-        '**/R$*.class',
-        '**/BuildConfig.*',
-        '**/Manifest*.*',
-        '**/*Test*.*',
-        '**/com/example/**/*.*'
-    ]
-
-    def debugTree = fileTree(dir: "${project.buildDir}/intermediates/javac/debug", excludes: fileFilter)
-    def mainSrc = "${project.projectDir}/src/main/java"
-
-    sourceDirectories.setFrom(files([mainSrc]))
-    classDirectories.setFrom(files([debugTree]))
-    executionData.setFrom(fileTree(dir: project.buildDir, includes: [
-        'jacoco/testDebugUnitTest.exec',
-        'outputs/unit_test_code_coverage/debugUnitTest/testDebugUnitTest.exec'
+    // ✅ APENAS ISSO - deixa o Jacoco descobrir automaticamente
+    executionData.setFrom(fileTree(dir: buildDir, includes: [
+        '**/*.exec',
+        '**/*.ec'
     ]))
 }
