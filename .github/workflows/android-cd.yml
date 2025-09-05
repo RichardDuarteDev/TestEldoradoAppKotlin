@@ -11,23 +11,25 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Download APK from CI
-        uses: actions/download-artifact@v4
+      - name: Download artifact from CI workflow
+        uses: dawidd6/action-download-artifact@v3
         with:
+          workflow: android-ci.yml
           name: app-debug-apk
-          
+          run_id: ${{ github.event.workflow_run.id }}
+
       - name: List downloaded files
         run: |
-          echo "Conteúdo da pasta raiz:"
+          echo "Conteúdo da pasta:"
           ls -la
-          echo "Conteúdo da pasta do artefato:"
+          echo "Conteúdo da pasta app-debug-apk:"
           ls -la app-debug-apk/
-          
+
       - name: Deploy to Firebase
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
           appId: ${{ secrets.FIREBASE_APP_ID }}
           serviceCredentialsFileContent: ${{ secrets.FIREBASE_CREDENTIALS }}
           testers: 'richardc.duarte@hotmail.com,gmvermelho@gmail.com'
-          file: app-debug-apk/app-debug.apk  # ✅ Correto!
+          file: app-debug-apk/app-debug.apk
           debug: true
