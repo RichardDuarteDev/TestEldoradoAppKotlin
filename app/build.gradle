@@ -21,12 +21,11 @@ android {
 
     // ✅ testOptions CORRETAMENTE POSICIONADO
     testOptions {
-        unitTests {
-            all {
-                it.kapt.includeCompileClasspath = false
-                it.kapt.arguments {
-                    arg("skipKapt", "true")
-                }
+        unitTests.all {
+            it.useJUnitPlatform()
+            // Desabilita processamento kapt para testes
+            it.extensions.configure(org.jetbrains.kotlin.gradle.tasks.KaptTask) {
+                enabled = false
             }
         }
     }
