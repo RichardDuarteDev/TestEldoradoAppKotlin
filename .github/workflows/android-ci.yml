@@ -91,3 +91,13 @@ jobs:
         with:
           name: app-debug-apk
           path: app/build/outputs/apk/debug/*.apk
+
+      # 🔒 ANÁLISE DE SEGURANÇA DE DEPENDÊNCIAS
+      - name: Run Dependency Security Analysis
+        run: ./gradlew dependencyCheckAnalyze
+
+      - name: Upload Dependency Security Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-security-report
+          path: app/build/reports/dependency-check-report.html
