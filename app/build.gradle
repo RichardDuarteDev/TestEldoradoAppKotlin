@@ -4,8 +4,6 @@ plugins {
     id 'com.google.gms.google-services' // Google Services Pluggin
     id 'com.google.firebase.appdistribution' // ← ESTE ESTÁ FALTANDO!
     id 'jacoco'
-    id 'org.jetbrains.kotlin.android'
-    id 'org.owasp.dependencycheck' // Adicione esta linha
 }
 
 android {
