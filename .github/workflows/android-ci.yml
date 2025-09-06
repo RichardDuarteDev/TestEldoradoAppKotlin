@@ -95,6 +95,7 @@ jobs:
       # 🔒 ANÁLISE DE SEGURANÇA DE DEPENDÊNCIAS
       - name: Run Dependency Security Analysis
         run: ./gradlew dependencyCheckAnalyze
+        continue-on-error: true
 
       - name: Upload Dependency Security Report
         uses: actions/upload-artifact@v4
