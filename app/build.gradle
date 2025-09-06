@@ -1,7 +1,6 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-kapt'
     id 'com.google.gms.google-services' // Google Services Pluggin
     id 'com.google.firebase.appdistribution' // ← ESTE ESTÁ FALTANDO!
     id 'jacoco'
@@ -56,6 +55,9 @@ dependencies {
     
     implementation(platform("com.google.firebase:firebase-bom:34.2.0"))
 
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:1.9.0"
+
 
 }
 
@@ -77,7 +79,7 @@ jacoco {
 }
 
 tasks.withType(Test) {
-    jacoco.includeNoLocationClasses = true
+    jacoco.includeNoLocationClasses = false
     jacoco.excludes = ['jdk.internal.*']
 }
 
