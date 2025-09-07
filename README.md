@@ -13,7 +13,10 @@ Projeto **Android em Kotlin** com pipeline **CI/CD completo** desenvolvido para 
 ## ✅ Requisitos Implementados
 
 ### 🔧 Obrigatórios
-- Pipeline **CI/CD com GitHub Actions** - fluxo automatizado completo  
+- Projeto Android (template)
+- Pipeline **CI/CD com GitHub Actions** - fluxo automatizado completo
+- README Com instruções de como Pipe line funciona
+- Prints e Links da execução bem sucedida do projeto
 - **Build da aplicação** → `./gradlew assembleDebug`  
 - **Execução de testes unitários** → `./gradlew testDebugUnitTest`  
 - **Análise estática (Lint)** → `./gradlew lintDebug`  
