@@ -6,7 +6,8 @@ Projeto **Android em Kotlin** com pipeline **CI/CD completo** desenvolvido para 
 ---
 
 ## Diagrama do Projeto
-<img width="833" height="463" alt="image" src="https://github.com/user-attachments/assets/7a291590-592e-43c9-bde4-40e091ba9c8f" />
+<img width="871" height="465" alt="image" src="https://github.com/user-attachments/assets/d63194d6-6c8f-4c61-ab10-237c4fc93986" />
+
 
 
 ## ✅ Requisitos Implementados
