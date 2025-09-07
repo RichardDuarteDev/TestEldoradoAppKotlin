@@ -27,7 +27,7 @@ jobs:
       - name: Deploy to Firebase
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
-          appId: "1:878713812338:android:b80512149ee9ed8f6fd9eb"  # ← USE ESTE!
+          appId: ${{ secrets.FIREBASE_APP_ID }}
           serviceCredentialsFileContent: ${{ secrets.FIREBASE_CREDENTIALS }}
           testers: 'richardc.duarte@hotmail.com,gmvermelho@gmail.com'
           file: app-debug.apk
